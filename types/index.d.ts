@@ -1,4 +1,4 @@
-import { ProLayoutProps } from '@ant-design/pro-components';
+import { ProLayoutProps } from "@ant-design/pro-components";
 
 export namespace API {
   /** GET /api/currentUser */
@@ -122,6 +122,7 @@ export namespace API {
 }
 
 export type DefaultSettingsType = ProLayoutProps & {
+  colorPrimary?: string;
   pwa?: boolean;
   logo?: string;
   colorBgMenuItemSelected?: string;

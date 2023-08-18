@@ -1,3 +1,4 @@
+import logoSvg from "../public/logo.svg";
 import { DefaultSettingsType } from "../types";
 
 export const defaultSettings: DefaultSettingsType = {
@@ -12,5 +13,5 @@ export const defaultSettings: DefaultSettingsType = {
   fixSiderbar: true,
   colorWeak: false,
   pwa: true,
-  logo: "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg",
+  logo: logoSvg,
 };
