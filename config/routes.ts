@@ -12,14 +12,14 @@
  */
 export default [
   {
+    path: "/",
+    redirect: "/welcome",
+  },
+  {
     path: "/welcome",
     name: "welcome",
     icon: "smile",
     component: "./Welcome",
-  },
-  {
-    path: "/",
-    redirect: "/welcome",
   },
   {
     path: "*",

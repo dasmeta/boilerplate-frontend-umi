@@ -7,6 +7,7 @@ import { RuntimeAntdConfig } from "umi";
 import { defaultSettings } from "../config/defaultSettings";
 import { DefaultSettingsType } from "../types";
 import generateColorWithOpacity from "../utils/colorGenerator";
+import { ExampleContextProvider } from "./context/ExampleContext";
 import { errorConfig } from "./requestErrorConfig";
 const isDev = process.env.NODE_ENV === "development";
 
@@ -34,23 +35,24 @@ export const layout: RunTimeLayoutConfig = ({
   return {
     actionsRender: () => [],
     waterMarkProps: {},
-    onPageChange: () => {},
-    theme: "light",
+    onPageChange: (location) => {},
     layoutBgImgList: [],
-    links: [],
+    links: [<a href="link1"> link 1 </a>, <a href="link2"> link 2 </a>],
     menuHeaderRender: undefined,
+    breadcrumbRender: (routers = []) => {
+      return [...routers];
+    },
 
     childrenRender: (children) => {
       return (
         <>
-          {children}
+          <ExampleContextProvider>{children}</ExampleContextProvider>
           {isDev && (
             <SettingDrawer
               disableUrlParams
               enableDarkTheme
               settings={initialState?.settings}
               onSettingChange={(settings) => {
-                //form props(setInitialState)
                 setInitialState((preInitialState) => ({
                   ...preInitialState,
                   settings,
@@ -90,7 +92,6 @@ export const layout: RunTimeLayoutConfig = ({
 };
 
 export const antd: RuntimeAntdConfig = (memo) => {
-  console.log(memo, "memo");
   memo.theme ??= {};
   memo.theme.token = {
     borderRadius: defaultSettings.borderRadius,
