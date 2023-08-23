@@ -23,7 +23,6 @@ export default defineConfig({
    * @doc umi theme 配置 https://umijs.org/docs/api/config#theme
    */
   theme: {
-    "@black": "#262626",
     "@black-color": "#262626",
     "@white-color": "#ffffff",
   },
