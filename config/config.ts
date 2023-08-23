@@ -23,7 +23,9 @@ export default defineConfig({
    * @doc umi theme 配置 https://umijs.org/docs/api/config#theme
    */
   theme: {
-    "root-entry-name": "variable",
+    "@black": "#262626",
+    "@black-color": "#262626",
+    "@white-color": "#ffffff",
   },
   /**
    * @doc https://umijs.org/docs/api/config#ignoremomentlocale
