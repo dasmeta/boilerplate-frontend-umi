@@ -93,4 +93,7 @@ export default defineConfig({
     strategy: "normal",
   },
   requestRecord: {},
+  define: {
+    BACKEND_HOST_EXAMPLE: process.env.BACKEND_HOST_EXAMPLE,
+  },
 });
