@@ -1,14 +1,12 @@
 // https://umijs.org/config/
 import { defineConfig } from "@umijs/max";
 import { defaultSettings } from "./defaultSettings";
-import routes from "./routes";
 
 export default defineConfig({
   /**
    * @doc https://umijs.org/docs/api/config#hash
    */
   hash: true,
-
   /**
    * @doc https://umijs.org/docs/api/config#targets
    */
@@ -17,12 +15,39 @@ export default defineConfig({
    * @doc https://umijs.org/docs/guides/routes
    */
   // umi routes: https://umijs.org/docs/routing
-  routes,
+  routes: [
+    {
+      path: "/",
+      redirect: "/welcome",
+    },
+
+    {
+      path: "/welcome",
+      name: "welcome",
+      icon: "smile",
+      component: "./Welcome",
+      wrappers: ["@/wrappers/auth"],
+    },
+
+    {
+      path: "/login",
+      component: "./Login",
+      wrappers: ["@/wrappers/authProvider"],
+      layout: false,
+    },
+    {
+      path: "*",
+      layout: false,
+      component: "./404",
+    },
+  ],
   /**
    * @doc ant https://ant.design/docs/react/customize-theme-cn
    * @doc umi theme 配置 https://umijs.org/docs/api/config#theme
    */
   theme: {
+    "@border-radius-base": "8px",
+    "@primary-color": "#9918A5",
     "@black-color": "#262626",
     "@white-color": "#ffffff",
   },
@@ -63,13 +88,14 @@ export default defineConfig({
    * @name 国际化插件
    * @doc https://umijs.org/docs/max/i18n
    */
-  locale: {
-    // default zh-CN
-    default: "en-US",
-    antd: true,
-    // default true, when it is true, will use `navigator.language` overwrite default
-    baseNavigator: true,
-  },
+  // locale: {
+  //   // default zh-CN
+  //   default: "en-US",
+  //   antd: true,
+  //   // default true, when it is true, will use `navigator.language` overwrite default
+  //   baseNavigator: true,
+
+  // },
   /**
    * @doc https://umijs.org/docs/max/antd#antd
    */
@@ -89,9 +115,7 @@ export default defineConfig({
   //================ pro 插件配置 =================
   presets: ["umi-presets-pro"],
 
-  mfsu: {
-    strategy: "normal",
-  },
+  mfsu: false,
   requestRecord: {},
   define: {
     BACKEND_HOST_EXAMPLE: process.env.BACKEND_HOST_EXAMPLE,

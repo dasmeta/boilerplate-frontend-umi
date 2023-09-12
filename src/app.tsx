@@ -1,14 +1,18 @@
+import { LogoutOutlined } from "@ant-design/icons";
 import {
   Settings as LayoutSettings,
   SettingDrawer,
 } from "@ant-design/pro-components";
 import type { RunTimeLayoutConfig } from "@umijs/max";
+import { history } from "@umijs/max";
+import { Button } from "antd";
 import { RuntimeAntdConfig } from "umi";
 import { defaultSettings } from "../config/defaultSettings";
 import { DefaultSettingsType } from "../types";
 import generateColorWithOpacity from "../utils/colorGenerator";
 import { ExampleContextProvider } from "./context/ExampleContext";
 import { errorConfig } from "./requestErrorConfig";
+
 const isDev = process.env.NODE_ENV === "development";
 
 /**
@@ -32,8 +36,30 @@ export const layout: RunTimeLayoutConfig = ({
 }) => {
   const settings: DefaultSettingsType = initialState?.settings || {};
 
+  // Function to check if the user is authenticated
+  const isAuthenticated = () => {
+    const jwtToken = localStorage.getItem("jwtToken");
+    return !!jwtToken;
+  };
+
+  // Function to handle logout
+  const handleLogout = () => {
+    // Remove JWT token from local storage
+    localStorage.removeItem("jwtToken");
+    // Redirect to the login page
+    history.push("/login"); // Replace "/login" with the actual login page path
+  };
+
   return {
-    actionsRender: () => [],
+    actionsRender: () => [
+      isAuthenticated() && (
+        <Button
+          type="primary"
+          onClick={handleLogout}
+          icon={<LogoutOutlined />}
+        />
+      ),
+    ],
     waterMarkProps: {},
     onPageChange: (location) => {},
     layoutBgImgList: [],

@@ -1,7 +1,8 @@
 import { PageContainer } from "@ant-design/pro-components";
 import { useModel } from "@umijs/max";
-import { Button, theme } from "antd";
-import React, { useContext } from "react";
+import { List, Typography, theme } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import api from "../../utils/axios";
 import { ExampleContext } from "../context/ExampleContext";
 
 /**
@@ -10,14 +11,41 @@ import { ExampleContext } from "../context/ExampleContext";
  */
 
 const Welcome: React.FC = () => {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const { token } = theme.useToken();
   const { initialState } = useModel("@@initialState");
   const { useToken } = theme;
   const exampleContext = useContext(ExampleContext);
+  const { Paragraph } = Typography;
+
+  //api call example
+  useEffect(() => {
+    api
+      .get("/users")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <PageContainer title="Welcome Page">
-      <Button type="primary">Button Text</Button>
+      <List
+        loading={loading}
+        header={
+          <Typography.Title level={3}>Api call data example</Typography.Title>
+        }
+        bordered
+        dataSource={data}
+        renderItem={(item: { username: string }) => (
+          <List.Item>
+            <Typography.Text mark>{item.username}</Typography.Text>
+          </List.Item>
+        )}
+      />
     </PageContainer>
   );
 };
