@@ -21,26 +21,9 @@ const Login: React.FC = () => {
   }
 
   return (
-    // <AuthProvider
-    //   theme={{
-    //     colorPrimary: settings.colorPrimary,
-    //     borderRadius: settings.borderRadius,
-    //   }}
-    //   provider={Provider.STRAPI}
-    //   config={{
-    //     host: "https://app.dasmeta.com/api",
-    //     onLoginSuccess: ({ jwt }) => {
-    //       onLoginSuccess(jwt);
-    //     },
-    //     onLoginFail: (message: string) => {
-    //       alert(message);
-    //     },
-    //   }}
-    // >
     <Row justify={"center"} align={"middle"} style={{ height: "100%" }}>
       <LoginComponent logo={settings.logo} />
     </Row>
-    // </AuthProvider>
   );
 };
 
